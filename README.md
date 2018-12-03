@@ -1,2 +1,2 @@
-# poliklinikasonsEvidencija
-Evidencija Poliklinika SONS
+# PaySpot Location Mapper
+PaySpot Location Mapper
