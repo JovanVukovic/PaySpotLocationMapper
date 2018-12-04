@@ -1,11 +1,15 @@
 package rs.payspot;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -62,9 +66,8 @@ public class CsvReader {
         		"WORKINGTIMETO", "WORKDAYFROM2", "WORKDAYTO2", "SATURDAYFROM", "SATURDAYTO", "SUNDAYFROM", "SUNDAYTO", 
         		"USLUGA_PLATNI_PROMET", "USLUGA_INTERNI_TRANSFER", "USLUGA_RIA_TRANSFER")*/
         try (
-            //Reader reader1 = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH), StandardCharsets.ISO_8859_1);
-        	Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH), Charset.forName("ISO-8859-2"));
-        	//BufferedReader	reader = new BufferedReader(new InputStreamReader(new FileInputStream(csvFile), "ISO-8859-2"));
+            //Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH), Charset.forName("ISO-8859-2"));
+        	BufferedReader	reader = new BufferedReader(new InputStreamReader(new FileInputStream(csvFile), "ISO-8859-2"));
             CSVParser csvParser = new CSVParser(reader, CSVFormat.EXCEL
             		.withDelimiter(';')
             		.withHeader()
@@ -125,7 +128,14 @@ public class CsvReader {
             for (int i = 0; i < 5; i++) {/*locationDTOs.size()*/
             	System.out.println("i: " + i + " ;" + locationDTOs.get(i));
 			}
-            System.out.println("i: " + 200 + " ;" + locationDTOs.get(202));
+            System.out.println("iŠŽĐČĆ: " + 200 + " ;" + locationDTOs.get(202));
+            String str = "Hello";
+            //BufferedWriter writer = new BufferedWriter(new FileWriter("D:/test4.csv"));
+			BufferedWriter writer = new BufferedWriter(
+					new OutputStreamWriter(new FileOutputStream("D:/test4.csv"), "ISO-8859-2"));
+			writer.write("iŠŽĐČĆ" + locationDTOs.get(202).toString());
+             
+            writer.close();
         }
     }
 }
