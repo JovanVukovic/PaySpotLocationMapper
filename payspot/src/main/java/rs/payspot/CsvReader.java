@@ -20,9 +20,12 @@ import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 import rs.payspot.dto.LocationDTO;
+import rs.payspot.entity.Location;
+import rs.payspot.util.PaySpotMapper;
 
 public class CsvReader {
 
@@ -128,14 +131,48 @@ public class CsvReader {
             for (int i = 0; i < 5; i++) {/*locationDTOs.size()*/
             	System.out.println("i: " + i + " ;" + locationDTOs.get(i));
 			}
-            System.out.println("iŠŽĐČĆ: " + 200 + " ;" + locationDTOs.get(202));
-            String str = "Hello";
+           // System.out.println("iŠŽĐČĆ: " + 200 + " ;" + locationDTOs.get(202));
+            //String str = "Hello";
             //BufferedWriter writer = new BufferedWriter(new FileWriter("D:/test4.csv"));
-			BufferedWriter writer = new BufferedWriter(
-					new OutputStreamWriter(new FileOutputStream("D:/test4.csv"), "ISO-8859-2"));
-			writer.write("iŠŽĐČĆ" + locationDTOs.get(202).toString());
+			//BufferedWriter writer = new BufferedWriter(
+			//		new OutputStreamWriter(new FileOutputStream("D:/test4.csv"), "ISO-8859-2"));
+			//writer.write("iŠŽĐČĆ" + locationDTOs.get(202).toString());
              
-            writer.close();
+            //writer.close();
+            
+            
+            try (
+                    //BufferedWriter writer2 = Files.newBufferedWriter(Paths.get(SAMPLE_CSV_FILE));
+            		BufferedWriter writer2 = new BufferedWriter(
+        					new OutputStreamWriter(new FileOutputStream("D:/testOUT.csv"), "ISO-8859-2"));
+
+                    CSVPrinter csvPrinter = new CSVPrinter(writer2, CSVFormat.DEFAULT
+                    		.withDelimiter(';')
+                            .withHeader(
+                            		"ID","Title","Address","Latitude","Longitude","City","State","Country","Postal Code","Message",
+                            		"Categories","Telefon","Sifra","Website","Radni dani","Radnim danom od","Radnim danom do",
+                            		"Radnim danom od (dvokratno)","Subotom od","Subotom do","Nedeljom od","Nedeljom do",
+                            		"Usluga - Platni promet","Usluga - PaySpot NET","Usluga - RIA Money Transfer","Email",
+                            		"Radnim danom do (dvokratno)","radnim-danom-od","radnim-danom-do","radnim-danom-od1",
+                            		"radnim-danom-do1","subotom-od","subotom-do","nedeljom-od","nedeljom-do","usluga-platni-promet",
+                            		"usluga-payspot-interni-transfer","usluga-ria-transfer"));
+                ) {
+            	
+            		List<Location> locations = PaySpotMapper.mappLocations(locationDTOs);
+            		for (Location location : locations) {
+            			csvPrinter.printRecord(location.getId(),location.getTitle(),location.getAddress(),location.getLatitude(),location.getLongitude(),location.getCity(),"",location.getCountry(),location.getPostalCode(),location.getMessage(),
+            					location.getCategories(),location.getTelefon(),location.getSifra(),location.getWebsite(),location.getRadniDani(),location.getRadnimDanomOd(),location.getRadnimDanomDo(),
+            					location.getRadnimDanomOdDvokratno(),location.getSubotomOd(),location.getSubotomDo(),location.getNedeljomOd(),location.getNedeljomDo(),
+            					location.getUslugaPlatniPromet(),location.getUslugaPaySpotNET(),location.getUslugaRIAMoneyTransfer(),location.getEmail(),
+            					location.getRadnimDanomDoDvokratno(),location.getRadnim_Danom_Od(),location.getRadnim_danom_do(),location.getRadnim_danom_od1(),
+            					location.getRadnim_danom_do1(),location.getSubotom_od(),location.getSubotom_do(),location.getNedeljom_od(),location.getNedeljom_do(),location.getUsluga_platni_promet(),
+            					location.getUsluga_payspot_interni_transfer(),location.getUsluga_ria_transfer());
+					}
+            		csvPrinter.printRecord("ŠĐŽĆČSC");
+
+
+                    csvPrinter.flush();            
+                }
         }
     }
 }
