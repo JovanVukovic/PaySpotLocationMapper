@@ -168,6 +168,12 @@ public class CsvReader {
                             		"usluga-payspot-interni-transfer","usluga-ria-transfer"));
                 ) {
             	
+            	country Republika Srbija => Serbia
+            			message \,
+            			category \,
+
+            			vremena ako je neradni dan moraju navodnici
+            			Neradni dan
             		List<Location> locations = PaySpotMapper.mappLocations(locationDTOs);
             		for (Location location : locations) {
             			String title = convert(location.getTitle());
@@ -189,13 +195,17 @@ public class CsvReader {
         }
     }
 
-    
+    public static byte[] transcodeField(byte[] source, Charset from, Charset to) {
+        return new String(source, from).getBytes(to);
+    }
     public static String convert(String srcStr) {
         byte[] srcBytes;
         String destStr = null;
         try {
-          srcBytes = srcStr.getBytes(srcEncoding);
-          destStr = new String(srcBytes, destEncoding);
+        	srcBytes = srcStr.getBytes(srcEncoding);
+        	destStr = new String(srcBytes, destEncoding);
+        	
+        	byte[] out = transcodeField(srcStr.getBytes(), Charset.forName(srcEncoding), Charset.forName(destEncoding));
         } catch (UnsupportedEncodingException e) {
           // TODO Auto-generated catch block
           e.printStackTrace();
