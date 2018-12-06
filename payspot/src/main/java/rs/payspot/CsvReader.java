@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -32,6 +33,8 @@ import rs.payspot.util.PaySpotMapper;
 public class CsvReader {
 
 	private static final String SAMPLE_CSV_FILE_PATH = "D:/test3.csv";
+	private static String srcEncoding = "ISO-8859-2";
+    private static String destEncoding = "UTF-8";
 
     public static void main(String[] args) throws IOException {
     	String csvFile = "D:/KVIK/csv/test.csv";
@@ -148,7 +151,7 @@ public class CsvReader {
             try (
                     //BufferedWriter writer2 = Files.newBufferedWriter(Paths.get(SAMPLE_CSV_FILE));
             		BufferedWriter writer2 = new BufferedWriter(
-        					new OutputStreamWriter(new FileOutputStream("D:/KVIK/csv/testOUT.csv"), "ISO-8859-2"));
+        					new OutputStreamWriter(new FileOutputStream("D:/KVIK/csv/testOUT.csv"), "UTF-8"));
             		
                     CSVPrinter csvPrinter = new CSVPrinter(writer2, CSVFormat.DEFAULT
                     		.withEscape('\\')
@@ -167,7 +170,8 @@ public class CsvReader {
             	
             		List<Location> locations = PaySpotMapper.mappLocations(locationDTOs);
             		for (Location location : locations) {
-            			csvPrinter.printRecord(location.getId(),"\"" + location.getTitle() + "\"","\"" + location.getAddress() + "\"",location.getLatitude(),location.getLongitude(),"\"" + location.getCity() + "\"","",location.getCountry(),location.getPostalCode(),"\"" + location.getMessage() + "\"",
+            			String title = convert(location.getTitle());
+            			csvPrinter.printRecord(location.getId(),"\"" + title + "\"","\"" + location.getAddress() + "\"",location.getLatitude(),location.getLongitude(),"\"" + location.getCity() + "\"","",location.getCountry(),location.getPostalCode(),"\"" + location.getMessage() + "\"",
             					"\"" + location.getCategories() + "\"","\"" + location.getTelefon() + "\"",location.getSifra(),location.getWebsite(),"\"" + location.getRadniDani() + "\"",location.getRadnimDanomOd(),location.getRadnimDanomDo(),
             					location.getRadnimDanomOdDvokratno(),location.getSubotomOd(),location.getSubotomDo(),location.getNedeljomOd(),location.getNedeljomDo(),
             					location.getUslugaPlatniPromet(),location.getUslugaPaySpotNET(),location.getUslugaRIAMoneyTransfer(),location.getEmail(),
@@ -175,13 +179,30 @@ public class CsvReader {
             					location.getRadnim_danom_do1(),location.getSubotom_od(),location.getSubotom_do(),location.getNedeljom_od(),location.getNedeljom_do(),location.getUsluga_platni_promet(),
             					location.getUsluga_payspot_interni_transfer(),location.getUsluga_ria_transfer());
 					}
-            		/*csvPrinter.printRecord("ŠĐŽĆČSC");*/
-
+            		csvPrinter.printRecord("","\"Test, FILIJALAĆČŠĐŽ ,7787\"","Branimira 2","45.255182","19.829258","\"Novi Sad\"","",
+            				"\"Republika Srbija\"","21000","\", od-from   do-to\"","\"Platni Promet\"","","122001","","\"Ponedeljak - Petak\"",
+            				"08:00","16:00","","\"Neradni dan\"","","\"Neradni dan\"","","AKTIVNA","AKTIVNA","AKTIVNA","","","08:00","16:00","","",
+            				"\"Neradni dan\"","","\"Neradni dan\"","","AKTIVNA","AKTIVNA","AKTIVNA");
 
                     csvPrinter.flush();            
                 }
         }
     }
+
+    
+    public static String convert(String srcStr) {
+        byte[] srcBytes;
+        String destStr = null;
+        try {
+          srcBytes = srcStr.getBytes(srcEncoding);
+          destStr = new String(srcBytes, destEncoding);
+        } catch (UnsupportedEncodingException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+
+        return destStr;
+      }
 }
 /*.withHeader("ORGUNIT", "ZASTUPNIK", "ZASTUPNIKNAZIV", "ORGUNITNAME", "ADDRESS", "LATITUDE", "LONGITUDE", "CITYID", 
 		"CITYNAME", "COUNTRY", "PTT", "MESSAGE","PHONE", "EMAIL", "WEBSITE", "WORKINGDAYSDESC", "WORKINGTIMEFROM", 
