@@ -14,6 +14,9 @@ public class Location {
 	@GeneratedValue(generator = "ID_GENERATOR")
 	private Long id;
 	
+	@Column(name="wordpressId", unique = true)
+	private String wordpressId;
+	
 	@Column(name="sifra", unique = true)
 	private String sifra;
 	/**
@@ -64,7 +67,7 @@ public class Location {
 	/**
 	 * WORKINGTIMEFROM => radnim-danom-od
 	 */
-	@Column(name="radnim-danom-od", unique = true)
+	@Column(name="radnimDanomOd", unique = true)
 	private String radnim_Danom_Od;
 	/**
 	 * WORKINGTIMETO => Radnim danom do
@@ -74,7 +77,7 @@ public class Location {
 	/**
 	 * WORKINGTIMETO => radnim-danom-do
 	 */
-	@Column(name="radnim-danom-do", unique = true)
+	@Column(name="radnimDanomDo", unique = true)
 	private String radnim_danom_do;
 	/**
 	 * WORKDAYFROM2 => Radnim danom od (dvokratno)
@@ -84,7 +87,7 @@ public class Location {
 	/**
 	 *  WORKDAYFROM2 => radnim-danom-od1
 	 */
-	@Column(name="radnim-danom-od1", unique = true)
+	@Column(name="radnimDanomOd1", unique = true)
 	private String radnim_danom_od1;
 	/**
 	 * WORKDAYTO2 => Radnim danom do (dvokratno)
@@ -94,7 +97,7 @@ public class Location {
 	/**
 	 * WORKDAYTO2 => radnim-danom-do1
 	 */
-	@Column(name="radnim-danom-do1", unique = true)
+	@Column(name="radnimDanomDo1", unique = true)
 	private String radnim_danom_do1;
 	/**
 	 * SATURDAYFROM => Subotom od
@@ -104,7 +107,7 @@ public class Location {
 	/**
 	 * SATURDAYFROM => subotom-od
 	 */
-	@Column(name="subotom-od", unique = true)
+	@Column(name="subotomOd", unique = true)
 	private String subotom_od;
 	/**
 	 * SATURDAYTO => subotom-do
@@ -114,7 +117,7 @@ public class Location {
 	/**
 	 * SATURDAYTO => subotom-do
 	 */
-	@Column(name="subotom-do", unique = true)
+	@Column(name="subotomDo", unique = true)
 	private String subotom_do;
 	/**
 	 * SUNDAYFROM => Nedeljom od
@@ -124,7 +127,7 @@ public class Location {
 	/**
 	 * SUNDAYFROM => nedeljom-od
 	 */
-	@Column(name="nedeljom-od", unique = true)
+	@Column(name="nedeljomOd", unique = true)
 	private String nedeljom_od;
 	/**
 	 * SUNDAYTO => Nedeljom do
@@ -134,37 +137,37 @@ public class Location {
 	/**
 	 * SUNDAYTO => nedeljom-do
 	 */
-	@Column(name="nedeljom-do", unique = true)
+	@Column(name="nedeljomDo", unique = true)
 	private String nedeljom_do;			
 	/**
 	 * USLUGA_PLATNI_PROMET => Usluga - Platni promet		
 	 */
-	@Column(name="Usluga-Platni_promet", unique = true)
+	@Column(name="UslugaPlatni_promet", unique = true)
 	private String uslugaPlatniPromet;
 	/**
 	 * USLUGA_PLATNI_PROMET => usluga-platni-promet	
 	 */
-	@Column(name="usluga-platni-promet", unique = true)
+	@Column(name="uslugaplatniPromet", unique = true)
 	private String usluga_platni_promet;
 	/**
 	 * USLUGA_INTERNI_TRANSFER => Usluga - PaySpot NET
 	 */
-	@Column(name="Usluga-PaySpot_NET", unique = true)
+	@Column(name="UslugaPaySpot_NET", unique = true)
 	private String uslugaPaySpotNET;
 	/**
 	 * USLUGA_INTERNI_TRANSFER => usluga-payspot-interni-transfer
 	 */
-	@Column(name="usluga-payspot-interni-transfer", unique = true)
+	@Column(name="uslugaPayspotInterniTransfer", unique = true)
 	private String usluga_payspot_interni_transfer;
 	/**
 	 * USLUGA_RIA_TRANSFER => Usluga - RIA Money Transfer	
 	 */
-	@Column(name="Usluga-RIA_Money_Transfer", unique = true)
+	@Column(name="UslugaRIA_Money_Transfer", unique = true)
 	private String uslugaRIAMoneyTransfer;
 	/**
 	 * USLUGA_RIA_TRANSFER => usluga-ria-transfer	
 	 */
-	@Column(name="usluga-ria-transfer", unique = true)
+	@Column(name="uslugaRriaTransfer", unique = true)
 	private String usluga_ria_transfer;
 	
 	public Long getId() {
@@ -388,5 +391,11 @@ public class Location {
 	}
 	public void setUsluga_ria_transfer(String usluga_ria_transfer) {
 		this.usluga_ria_transfer = usluga_ria_transfer;
-	}	
+	}
+	public String getWordpressId() {
+		return wordpressId;
+	}
+	public void setWordpressId(String wordpressId) {
+		this.wordpressId = wordpressId;
+	}
 }

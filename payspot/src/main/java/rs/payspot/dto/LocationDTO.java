@@ -6,25 +6,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-public class LocationDTO implements Serializable{
-
-	@Override
-	public String toString() {
-		return "LocationDTO [orgUnit=" + orgUnit + ", zastupnik=" + zastupnik + ", zastupnikNaziv=" + zastupnikNaziv
-				+ ", orgUnitName=" + orgUnitName + ", address=" + address + ", latitude=" + latitude + ", longitude="
-				+ longitude + ", cityId=" + cityId + ", cityName=" + cityName + ", country=" + country + ", ptt=" + ptt
-				+ ", message=" + message + ", phone=" + phone + ", email=" + email + ", website=" + website
-				+ ", workingDaysDesc=" + workingDaysDesc + ", workingTimeFrom=" + workingTimeFrom + ", workingTimeTo="
-				+ workingTimeTo + ", workDayFrom2=" + workDayFrom2 + ", workDayTo2=" + workDayTo2 + ", saturdayFrom="
-				+ saturdayFrom + ", saturdayTo=" + saturdayTo + ", sundayFrom=" + sundayFrom + ", sundayTo=" + sundayTo
-				+ ", uslugaPlatniPromet=" + uslugaPlatniPromet + ", uslugaInterniTransfer=" + uslugaInterniTransfer
-				+ ", uslugaRiaTransfer=" + uslugaRiaTransfer + "]";
-	}
+public class LocationDTO implements Serializable{	
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7610315840660977551L;
+	
+	private String wordpressId;
 	
 	@JsonInclude(Include.NON_NULL)
 	@JsonProperty("ORGUNIT")
@@ -133,6 +122,14 @@ public class LocationDTO implements Serializable{
 	@JsonInclude(Include.NON_NULL)
 	@JsonProperty("USLUGA_RIA_TRANSFER")
 	private String uslugaRiaTransfer;
+
+	public String getWordpressId() {
+		return wordpressId;
+	}
+
+	public void setWordpressId(String wordpressId) {
+		this.wordpressId = wordpressId;
+	}
 
 	public String getOrgUnit() {
 		return orgUnit;
@@ -349,4 +346,17 @@ public class LocationDTO implements Serializable{
 	public void setUslugaRiaTransfer(String uslugaRiaTransfer) {
 		this.uslugaRiaTransfer = uslugaRiaTransfer;
 	}	
+	
+	@Override
+	public String toString() {
+		return "LocationDTO [orgUnit=" + orgUnit + ", zastupnik=" + zastupnik + ", zastupnikNaziv=" + zastupnikNaziv
+				+ ", orgUnitName=" + orgUnitName + ", address=" + address + ", latitude=" + latitude + ", longitude="
+				+ longitude + ", cityId=" + cityId + ", cityName=" + cityName + ", country=" + country + ", ptt=" + ptt
+				+ ", message=" + message + ", phone=" + phone + ", email=" + email + ", website=" + website
+				+ ", workingDaysDesc=" + workingDaysDesc + ", workingTimeFrom=" + workingTimeFrom + ", workingTimeTo="
+				+ workingTimeTo + ", workDayFrom2=" + workDayFrom2 + ", workDayTo2=" + workDayTo2 + ", saturdayFrom="
+				+ saturdayFrom + ", saturdayTo=" + saturdayTo + ", sundayFrom=" + sundayFrom + ", sundayTo=" + sundayTo
+				+ ", uslugaPlatniPromet=" + uslugaPlatniPromet + ", uslugaInterniTransfer=" + uslugaInterniTransfer
+				+ ", uslugaRiaTransfer=" + uslugaRiaTransfer + "]";
+	}
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -28,16 +29,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("user").password("password").roles("USER").and().withUser("admin")
-				.password("password").roles("USER", "ADMIN");
+		auth.inMemoryAuthentication().withUser("kvik").password("kvik").roles("USER").and().withUser("admin")
+				.password("admin").roles("USER", "ADMIN");
+		/*auth
+        .inMemoryAuthentication()
+            .withUser("user").password("password").roles("USER");*/
 	}
 	
-
-	protected void configure(HttpSecurity http) throws Exception {
-		/*http.authorizeRequests().antMatchers(HttpMethod.GET, "/{email}/payment").permitAll()
-		.anyRequest().authenticated().and().httpBasic();*/
-		http.authorizeRequests().antMatchers("/**").permitAll()
+	protected void configure(HttpSecurity http) throws Exception {//"/{email}/payment"
+		/*http.authorizeRequests()
+			.antMatchers("/**").hasAnyRole("ADMIN")
+			.antMatchers("/**").hasAnyRole("USER")
+			.anyRequest().authenticated().and().httpBasic();*/
+		
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/uploadPaySpot").permitAll()
 		.anyRequest().authenticated().and().httpBasic();
+		/*http.authorizeRequests().antMatchers("/**").permitAll()
+		.anyRequest().authenticated().and().httpBasic();*/
 		http.csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		

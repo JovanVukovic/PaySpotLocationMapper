@@ -7,9 +7,9 @@ import rs.payspot.dto.LocationDTO;
 import rs.payspot.entity.Location;
 
 public class PaySpotMapper {
-	
+		
 	public static List<Location> mappLocations(List<LocationDTO> locationDTOs){
-		List<Location> locations = new ArrayList<>();
+		List<Location> locations = new ArrayList<Location>();
 		
 		for (LocationDTO locationDTO : locationDTOs) {
 			Location location = mappLocation(locationDTO);
@@ -21,6 +21,7 @@ public class PaySpotMapper {
 
 	private static Location mappLocation(LocationDTO locationDTO){
 		Location location = new Location();
+
 		location.setSifra(getValue(locationDTO.getOrgUnit()));
 		location.setTitle(getValue(locationDTO.getZastupnikNaziv()) + " " + getValue(locationDTO.getOrgUnitName()) );
 		location.setAddress(getValue(locationDTO.getAddress()));
